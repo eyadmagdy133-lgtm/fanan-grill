@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشويات الفنان - AL FANAN GRILL</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        dark: {
+                            900: '#0b0b0e',
+                            800: '#141419',
+                            700: '#1e1e26',
+                            600: '#2a2a36'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0b0b0e;
+            color: #f3f4f6;
+            touch-action: manipulation;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-black">
+
+    <header class="sticky top-0 z-40 bg-dark-900/95 backdrop-blur-md border-b border-gold-500/20 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Brand Logo & Title -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('customer')">
+                <div class="relative w-12 h-12 rounded-full gold-gradient-bg p-0.5 shadow-lg flex-shrink-0">
+                    <div class="w-full h-full bg-dark-900 rounded-full flex items-center justify-center overflow-hidden">
+                        <i class="fa-solid fa-fire text-gold-500 text-2xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-black text-white leading-tight">
+                        مشويات <span class="gold-gradient-text">الفنان</span>
+                    </h1>
+                    <p class="text-[11px] text-gray-400 font-semibold">AL FANAN GRILL - طعم أصلي</p>
+                </div>
+            </div>
+
+            <!-- Header Action Buttons -->
+            <div class="flex items-center gap-2">
+                <button onclick="openStaffModal()" class="px-3 py-1.5 rounded-xl bg-dark-800 border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-black transition text-xs font-bold flex items-center gap-1.5 shadow-md">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span class="hidden sm:inline">دخول العاملين</span>
+                </button>
+                <button onclick="openCartModal()" class="relative px-3.5 py-1.5 rounded-xl gold-gradient-bg text-black font-extrabold text-xs shadow-lg flex items-center gap-2 hover:brightness-110 transition">
+                    <i class="fa-solid fa-basket-shopping text-sm"></i>
+                    <span id="cart-badge" class="bg-black text-gold-400 text-[11px] px-2 py-0.5 rounded-full font-black">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="customer-view" class="flex-1 space-y-6">
+        <!-- Banner Hero -->
+        <div class="max-w-6xl mx-auto px-4 mt-4">
+            <div class="bg-gradient-to-r from-dark-800 via-dark-700 to-dark-800 border border-gold-500/30 rounded-3xl p-5 md:p-6 shadow-2xl relative overflow-hidden">
+                <div class="absolute -left-10 -bottom-10 opacity-10 text-gold-500 text-9xl pointer-events-none">
+                    <i class="fa-solid fa-drumstick-bite"></i>
+                </div>
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="space-y-2 text-center md:text-right">
+                        <span class="inline-block bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs px-3 py-1 rounded-full font-bold">
+                            <i class="fa-solid fa-location-dot ml-1"></i> فيكتوريا - على مزلقان القطر
+                        </span>
+                        <h2 class="text-2xl md:text-3xl font-black text-white">مشويات على أصولها 🔥</h2>
+                        <p class="text-xs text-gray-400 max-w-md">أطلب الآن أونلاين ويتم متابعة وتحضير طلبك فوراً في المطبخ!</p>
+                    </div>
+
+                    <div class="bg-dark-900/80 backdrop-blur border border-gold-500/30 px-4 py-2.5 rounded-2xl flex items-center gap-3 shadow-inner">
+                        <i class="fa-solid fa-phone-volume text-gold-400 text-2xl animate-pulse"></i>
+                        <div>
+                            <span class="text-[10px] text-gray-400 block font-bold">الخط الساخن للطلبات</span>
+                            <span class="text-sm font-black text-white tracking-widest" dir="ltr">01010778725</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Menu Category Bar -->
+        <nav class="sticky top-[65px] z-30 bg-dark-900/90 backdrop-blur border-b border-dark-700 py-3">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-1" id="category-tabs">
+                    <!-- Dynamic Categories Tabs -->
+                </div>
+            </div>
+        </nav>
+
+        <!-- Menu Container -->
+        <main class="max-w-6xl mx-auto px-4 space-y-8 pb-20" id="menu-sections">
+            <!-- Dynamic Menu Sections -->
+        </main>
+    </div>
+
+    <div id="staff-view" class="hidden max-w-6xl mx-auto px-4 py-6 space-y-6 flex-1 w-full">
+        <!-- Dashboard Top Control Header -->
+        <div class="bg-dark-800 rounded-2xl p-4 border border-gold-500/30 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gold-500/20 border border-gold-500/40 text-gold-400 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-kitchen-set"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-black text-white">لوحة تحكم العاملين والمطبخ</h2>
+                    <p class="text-xs text-gray-400">متابعة وإدارة الطلبات المعلقة فورياً</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="showSection('customer')" class="px-3.5 py-2 rounded-xl bg-dark-700 hover:bg-dark-600 text-gray-300 font-bold text-xs transition flex items-center gap-2 border border-dark-600">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span>عرض المنيو</span>
+                </button>
+                <button onclick="lockStaff()" class="px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 font-bold text-xs transition">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Analytics Badges -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="bg-dark-800 p-4 rounded-2xl border border-dark-700 shadow">
+                <span class="text-xs text-gray-400 block font-bold">طلبات معلقة</span>
+                <span id="stat-pending" class="text-2xl font-black text-amber-500">0</span>
+            </div>
+            <div class="bg-dark-800 p-4 rounded-2xl border border-dark-700 shadow">
+                <span class="text-xs text-gray-400 block font-bold">قيد التجهيز</span>
+                <span id="stat-preparing" class="text-2xl font-black text-blue-400">0</span>
+            </div>
+            <div class="bg-dark-800 p-4 rounded-2xl border border-dark-700 shadow">
+                <span class="text-xs text-gray-400 block font-bold">طلبات مكتملة</span>
+                <span id="stat-completed" class="text-2xl font-black text-emerald-400">0</span>
+            </div>
+            <div class="bg-dark-800 p-4 rounded-2xl border border-dark-700 shadow">
+                <span class="text-xs text-gray-400 block font-bold">إجمالي المبيعات</span>
+                <span id="stat-sales" class="text-2xl font-black text-gold-400">0 <span class="text-xs">ج.م</span></span>
+            </div>
+        </div>
+
+        <!-- Status Filter Tabs -->
+        <div class="flex gap-2 overflow-x-auto hide-scrollbar border-b border-dark-700 pb-2">
+            <button onclick="filterStaffOrders('all')" id="btn-filter-all" class="px-4 py-2 rounded-xl text-xs font-bold gold-gradient-bg text-black shadow">الكل</button>
+            <button onclick="filterStaffOrders('pending')" id="btn-filter-pending" class="px-4 py-2 rounded-xl text-xs font-bold bg-dark-800 text-gray-300 border border-dark-700">المعلقة</button>
+            <button onclick="filterStaffOrders('preparing')" id="btn-filter-preparing" class="px-4 py-2 rounded-xl text-xs font-bold bg-dark-800 text-gray-300 border border-dark-700">قيد التجهيز</button>
+            <button onclick="filterStaffOrders('completed')" id="btn-filter-completed" class="px-4 py-2 rounded-xl text-xs font-bold bg-dark-800 text-gray-300 border border-dark-700">المكتملة</button>
+        </div>
+
+        <!-- Orders Queue Container -->
+        <div id="staff-orders-queue" class="space-y-4">
+            <!-- Dynamic Kitchen Orders Rendered Here -->
+        </div>
+    </div>
+
+    <div id="floating-cart-bar" class="fixed bottom-0 left-0 right-0 z-30 p-4 bg-dark-900/95 backdrop-blur-md border-t border-gold-500/20 shadow-2xl transition-transform transform translate-y-full md:hidden">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div>
+                <span class="text-[11px] text-gray-400 block font-bold">إجمالي الطلب</span>
+                <div class="text-lg font-black text-gold-400">
+                    <span id="floating-cart-total">0</span> ج.م
+                </div>
+            </div>
+            <button onclick="openCartModal()" class="gold-gradient-bg text-black font-extrabold py-2.5 px-5 rounded-xl shadow-lg flex items-center gap-2 hover:brightness-110">
+                <span>استكمال الطلب</span>
+                <span id="floating-cart-count" class="bg-black text-gold-400 text-xs font-black px-2 py-0.5 rounded-full">0</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-2 md:p-4">
+        <div class="bg-dark-800 border border-gold-500/30 w-full h-full md:h-auto md:max-h-[90vh] md:max-w-xl md:rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+            <!-- Modal Header -->
+            <div class="p-4 border-b border-dark-700 flex items-center justify-between bg-dark-900/50">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-basket-shopping text-gold-400 text-lg"></i>
+                    <h3 class="text-base font-black text-white">سلة طلباتك</h3>
+                </div>
+                <button onclick="closeCartModal()" class="w-8 h-8 rounded-full bg-dark-700 text-gray-400 hover:text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-5">
+                <!-- Cart Items List -->
+                <div>
+                    <h4 class="text-xs font-bold text-gray-400 mb-2">الأصناف المختارة</h4>
+                    <div id="cart-items-list" class="space-y-2">
+                        <!-- Rendered Items -->
+                    </div>
+                </div>
+
+                <!-- Total Summary -->
+                <div class="bg-dark-900 p-3.5 rounded-2xl border border-dark-700 space-y-2">
+                    <div class="flex justify-between text-sm font-black text-white">
+                        <span>المبلغ الإجمالي</span>
+                        <span class="text-gold-400 text-base"><span id="cart-summary-total">0</span> ج.م</span>
+                    </div>
+                </div>
+
+                <!-- Customer Details Form -->
+                <form id="checkout-form" class="space-y-3" onsubmit="event.preventDefault(); confirmOrder();">
+                    <h4 class="text-xs font-bold text-gold-400">بيانات التوصيل والتأكيد</h4>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 mb-1">الاسم بالكامل *</label>
+                        <input type="text" id="cust-name" required placeholder="أدخل اسمك الكريم" class="w-full px-3.5 py-2.5 rounded-xl bg-dark-900 border border-dark-700 focus:border-gold-500 text-sm text-white outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 mb-1">رقم الهاتف *</label>
+                        <input type="tel" id="cust-phone" required placeholder="01xxxxxxxxx" class="w-full px-3.5 py-2.5 rounded-xl bg-dark-900 border border-dark-700 focus:border-gold-500 text-sm text-white outline-none" dir="ltr">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 mb-1">العنوان بالتفصيل *</label>
+                        <textarea id="cust-address" required rows="2" placeholder="المنطقة، الشارع، رقم العمارة، الشقة..." class="w-full px-3.5 py-2.5 rounded-xl bg-dark-900 border border-dark-700 focus:border-gold-500 text-sm text-white outline-none"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer Action -->
+            <div class="p-4 bg-dark-900/80 border-t border-dark-700">
+                <button onclick="confirmOrder()" class="w-full gold-gradient-bg text-black font-black py-3.5 rounded-xl shadow-xl flex items-center justify-center gap-2 hover:brightness-110 transition text-sm">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>تأكيد وإرسال الطلب للمطبخ</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-dark-800 border border-gold-500/40 w-full max-w-sm rounded-3xl p-6 text-center space-y-4 shadow-2xl gold-border-glow">
+            <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-3xl mx-auto border border-emerald-500/30">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            
+            <h3 class="text-xl font-black text-white">تم إرسال طلبك بنجاح!</h3>
+            <p class="text-xs text-gray-300 leading-relaxed">
+                طلبك الآن معلق ومسجل في المطبخ، جارٍ العمل على تجهيزه للتوصيل.
+            </p>
+
+            <div class="bg-dark-900 p-3 rounded-xl border border-dark-700">
+                <span class="text-xs text-gray-400 block font-bold">رقم الطلب المرجعي</span>
+                <span id="success-order-id" class="text-lg font-black text-gold-400">#---</span>
+            </div>
+
+            <button onclick="closeSuccessModal()" class="w-full gold-gradient-bg text-black font-extrabold py-3 rounded-xl hover:brightness-110 transition">
+                العودة للمنيو
+            </button>
+        </div>
+    </div>
+
+    <!-- Staff Security PIN Modal -->
+    <div id="staff-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-dark-800 border border-dark-700 w-full max-w-xs rounded-3xl p-6 text-center space-y-4 shadow-2xl">
+            <div class="w-12 h-12 rounded-2xl bg-gold-500/20 text-gold-400 flex items-center justify-center mx-auto text-xl border border-gold-500/30">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            
+            <div>
+                <h3 class="text-base font-extrabold text-white">رمز دخول العاملين</h3>
+                <p class="text-xs text-gray-400 mt-1">الرمز الافتراضي: <span class="text-gold-400 font-bold" dir="ltr">1234</span></p>
+            </div>
+
+            <div>
+                <input type="password" id="staff-pin-input" placeholder="••••" maxlength="6" class="w-full text-center text-2xl font-black tracking-widest px-3 py-2 bg-dark-900 border border-dark-700 rounded-xl text-white outline-none focus:border-gold-500">
+            </div>
+
+            <p id="pin-error" class="text-xs text-red-400 hidden font-bold">الرمز السري غير صحيح!</p>
+
+            <div class="flex gap-2">
+                <button onclick="closeStaffModal()" class="flex-1 bg-dark-700 text-gray-400 font-bold py-2.5 rounded-xl text-xs">إلغاء</button>
+                <button onclick="verifyStaffPin()" class="flex-1 gold-gradient-bg text-black font-extrabold py-2.5 rounded-xl text-xs">دخول</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark-900 border-t border-dark-700/80 py-6 text-center space-y-2 mt-auto">
+        <p class="text-xs font-bold text-gray-400">🔥 مشويات الفنان - AL FANAN GRILL 🔥</p>
+        <p class="text-[11px] text-gray-500">فيكتوريا - على مزلقان القطر | هاتف: 01010778725</p>
+    </footer>
+
+    <script>
+        // Restaurant Database (Full Original Visual Menu)
+        const menuCategories = [
+            {
+                id: 'hawawshi',
+                title: 'قسم الحواوشي',
+                icon: 'fa-bread-slice',
+                items: [
+                    { id: 'h1', name: 'حواوشي سجق', price: 45, desc: 'حواوشي بلدي مقرمش بالسجق المتبل' },
+                    { id: 'h2', name: 'حواوشي سجق موتزاريلا', price: 55, desc: 'سجق شرقي مع جبن موتزاريلا ذائبة' },
+                    { id: 'h3', name: 'حواوشي لحمه', price: 40, desc: 'حواوشي لحم بلدي طازج بالبهارات' },
+                    { id: 'h4', name: 'حواوشي لحمه موتزاريلا', price: 50, desc: 'حواوشي لحم غرقان جبنة موتزاريلا' }
+                ]
+            },
+            {
+                id: 'sandwiches',
+                title: 'قسم السندوتشات',
+                icon: 'fa-burger',
+                items: [
+                    { id: 's1', name: 'كفته', price: 30, desc: 'كفتة مشوية على الفحم' },
+                    { id: 's2', name: 'سجق', price: 30, desc: 'سجق بلدي مميز' },
+                    { id: 's3', name: 'برجر كلاسيك', price: 55, desc: 'قطعة برجر مشوية طازجة' },
+                    { id: 's4', name: 'برجر جبنة', price: 55, desc: 'برجر مشوي مع صوص الشيدر' },
+                    { id: 's5', name: 'برجر بالبسطرمة المدخن', price: 65, desc: 'برجر مع شرائح بسطرمة مدخنة وصوص' },
+                    { id: 's6', name: 'برجر فنان', price: 85, desc: 'خلطة الفنان الخاصة والمميزة' },
+                    { id: 's7', name: 'تحبيشة شريحة بسطرمة', price: 30, desc: 'إضافة تحبيشة بسطرمة مشوية' },
+                    { id: 's8', name: 'لحمة مشوي روزبيف', price: 75, desc: 'لحم مشوي روزبيف مدخن' },
+                    { id: 's9', name: 'بانيه', price: 75, desc: 'صدور دجاج بانيه مقرمشة' },
+                    { id: 's10', name: 'بانيه رانش', price: 110, desc: 'بانيه دجاج مع صوص الرانش الغني' },
+                    { id: 's11', name: 'شيش', price: 110, desc: 'شيش طاووق مشوي على الفحم' },
+                    { id: 's12', name: 'شيش رانش', price: 110, desc: 'شيش طاووق بصوص الرانش المميز' },
+                    { id: 's13', name: 'ساندوتش فراخ', price: 60, desc: 'ساندوتش دجاج متبل' },
+                    { id: 's14', name: 'برجر فراخ مشوي', price: 65, desc: 'برجر دجاج مشوي على الفحم' },
+                    { id: 's15', name: 'برجر فراخ كرسبي', price: 70, desc: 'برجر دجاج مقرمش' },
+                    { id: 's16', name: 'برجر مشروم', price: 70, desc: 'برجر لحم مع صوص المشروم' },
+                    { id: 's17', name: 'برجر دبل لحمه', price: 85, desc: 'قطعتين برجر لحم مشوي' },
+                    { id: 's18', name: 'برجر تربل لحمه', price: 110, desc: 'ثلاث طبقات برجر لحم مشوي' },
+                    { id: 's19', name: 'برجر فراخ كرسبي دبل', price: 95, desc: 'قطعتين برجر دجاج كرسبي' }
+                ]
+            },
+            {
+                id: 'meals',
+                title: 'قسم الوجبات',
+                icon: 'fa-drumstick-bite',
+                items: [
+                    { id: 'm1', name: 'وجبة برجر بالبطاطس', price: 75, desc: 'وجبة برجر مميزة مع باكيت بطاطس' },
+                    { id: 'm2', name: 'ثلاث قطع فرايد تشيكن', price: 110, desc: '3 قطع دجاج + بطاطس + عيش + صوص جبنة' },
+                    { id: 'm3', name: 'وجبة كفتة وبرجر', price: 110, desc: 'مكس كفتة وبرجر مشوي + بطاطس' }
+                ]
+            },
+            {
+                id: 'extras',
+                title: 'قسم الإضافات',
+                icon: 'fa-utensils',
+                items: [
+                    { id: 'e1', name: 'باكيت بطاطس', price: 30, desc: 'بطاطس مقلية مقرمشة' },
+                    { id: 'e2', name: 'باكيت بطاطس جبنة', price: 40, desc: 'بطاطس بصوص الجبنة الشيدر' },
+                    { id: 'e3', name: 'إضافة حلقة بصل', price: 15, desc: 'حلقات بصل مقرمشة' },
+                    { id: 'e4', name: 'إضافة طحينة', price: 15, desc: 'علبة طحينة بلدي' },
+                    { id: 'e5', name: 'علبة صوص', price: 15, desc: 'اختيارك من الصوص' },
+                    { id: 'e6', name: 'إضافة جبنة', price: 25, desc: 'إضافة شيدر أو موتزاريلا' },
+                    { id: 'e7', name: 'إضافة مخلل', price: 5, desc: 'طبق مخلل مشكل' },
+                    { id: 'e8', name: 'هالابينو', price: 15, desc: 'إضافة فلفل هالابينو حار' },
+                    { id: 'e9', name: 'علبة هالابينو', price: 5, desc: 'علبة هالابينو صغيرة' },
+                    { id: 'e10', name: 'عيش', price: 5, desc: 'رغيف خبز بلدي' }
+                ]
+            }
+        ];
+
+        // State Stores
+        let cart = {}; // { id: qty }
+        let staffFilter = 'all';
+        let isStaffLoggedIn = false;
+        const DEFAULT_PIN = "1234";
+
+        // Initializer
+        window.onload = function() {
+            renderTabs();
+            renderMenu();
+            updateCart();
+            // Auto refresh staff dashboard queue every 2 seconds
+            setInterval(updateStaffDashboard, 2000);
+        };
+
+        // Render Tabs Navigation
+        function renderTabs() {
+            const tabsContainer = document.getElementById('category-tabs');
+            tabsContainer.innerHTML = menuCategories.map((cat, idx) => `
+                <button onclick="scrollToCat('${cat.id}')" class="px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-2 ${idx === 0 ? 'gold-gradient-bg text-black shadow-md' : 'bg-dark-800 text-gray-300 border border-dark-700 hover:border-gold-500/50'}">
+                    <i class="fa-solid ${cat.icon}"></i>
+                    <span>${cat.title}</span>
+                </button>
+            `).join('');
+        }
+
+        // Render Full Menu
+        function renderMenu() {
+            const container = document.getElementById('menu-sections');
+            container.innerHTML = menuCategories.map(cat => `
+                <section id="cat-${cat.id}" class="space-y-3 scroll-mt-24">
+                    <div class="flex items-center gap-2 border-r-4 border-gold-500 pr-3 py-1">
+                        <i class="fa-solid ${cat.icon} text-gold-400 text-base"></i>
+                        <h3 class="text-base font-black text-white">${cat.title}</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        ${cat.items.map(item => {
+                            const qty = cart[item.id] || 0;
+                            return `
+                                <div class="bg-dark-800 rounded-2xl p-4 border border-dark-700 shadow-md hover:border-gold-500/40 transition flex flex-col justify-between gap-3">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm mb-1">${item.name}</h4>
+                                            <p class="text-xs text-gray-400 leading-relaxed">${item.desc}</p>
+                                        </div>
+                                        <div class="text-gold-400 font-black text-sm whitespace-nowrap mr-2">
+                                            ${item.price} <span class="text-[10px] font-normal text-gray-400">ج.م</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between items-center pt-2 border-t border-dark-700/60">
+                                        <span class="text-xs text-gray-400">الكمية</span>
+                                        <div class="flex items-center gap-2">
+                                            ${qty > 0 ? `
+                                                <button onclick="changeQty('${item.id}', -1)" class="w-7 h-7 rounded-lg bg-dark-900 border border-dark-700 text-white font-bold flex items-center justify-center text-xs">
+                                                    <i class="fa-solid fa-minus"></i>
+                                                </button>
+                                                <span class="font-black text-gold-400 text-sm w-4 text-center">${qty}</span>
+                                            ` : ''}
+                                            <button onclick="changeQty('${item.id}', 1)" class="w-7 h-7 rounded-lg gold-gradient-bg text-black font-black flex items-center justify-center text-xs shadow">
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </section>
+            `).join('');
+        }
+
+        // Scroll helper
+        function scrollToCat(id) {
+            const el = document.getElementById(`cat-${id}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Change Cart Item Quantity
+        function changeQty(id, delta) {
+            const current = cart[id] || 0;
+            const next = current + delta;
+            if (next <= 0) {
+                delete cart[id];
+            } else {
+                cart[id] = next;
+            }
+            renderMenu();
+            updateCart();
+        }
+
+        // Find Item Object Helper
+        function findItem(id) {
+            for (let cat of menuCategories) {
+                let match = cat.items.find(i => i.id === id);
+                if (match) return match;
+            }
+            return null;
+        }
+
+        // Calculate Cart Total
+        function getCartStats() {
+            let total = 0;
+            let count = 0;
+            for (let id in cart) {
+                const item = findItem(id);
+                if (item) {
+                    total += item.price * cart[id];
+                    count += cart[id];
+                }
+            }
+            return { total, count };
+        }
+
+        // Update Cart UI Components
+        function updateCart() {
+            const { total, count } = getCartStats();
+
+            document.getElementById('cart-badge').innerText = count;
+            document.getElementById('floating-cart-count').innerText = count;
+            document.getElementById('floating-cart-total').innerText = total;
+            document.getElementById('cart-summary-total').innerText = total;
+
+            const floatBar = document.getElementById('floating-cart-bar');
+            if (count > 0) {
+                floatBar.classList.remove('translate-y-full');
+            } else {
+                floatBar.classList.add('translate-y-full');
+            }
+
+            renderCartModalItems();
+        }
+
+        // Render Cart Modal Items
+        function renderCartModalItems() {
+            const container = document.getElementById('cart-items-list');
+            const keys = Object.keys(cart);
+
+            if (keys.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-6 text-gray-500">
+                        <i class="fa-solid fa-basket-shopping text-2xl mb-1 block"></i>
+                        <p class="text-xs">السلة فارغة</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = keys.map(id => {
+                const item = findItem(id);
+                const qty = cart[id];
+                return `
+                    <div class="flex items-center justify-between p-2.5 bg-dark-900 rounded-xl border border-dark-700 text-xs">
+                        <div>
+                            <h5 class="font-bold text-white">${item.name}</h5>
+                            <span class="text-gold-400 font-bold">${item.price * qty} ج.م</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="changeQty('${item.id}', -1)" class="w-6 h-6 rounded bg-dark-800 text-gray-300 font-bold flex items-center justify-center">
+                                <i class="fa-solid fa-minus text-[10px]"></i>
+                            </button>
+                            <span class="font-bold text-white w-4 text-center">${qty}</span>
+                            <button onclick="changeQty('${item.id}', 1)" class="w-6 h-6 rounded gold-gradient-bg text-black font-bold flex items-center justify-center">
+                                <i class="fa-solid fa-plus text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Confirm and Save Order (Pending Status)
+        function confirmOrder() {
+            const { total, count } = getCartStats();
+            if (count === 0) {
+                alert('سلة الطلبات فارغة!');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (!name || !phone || !address) {
+                alert('يرجى كتابة كافة البيانات بشكل صحيح!');
+                return;
+            }
+
+            const itemsArray = [];
+            for (let id in cart) {
+                const item = findItem(id);
+                itemsArray.push({
+                    name: item.name,
+                    price: item.price,
+                    qty: cart[id]
+                });
+            }
+
+            const newOrder = {
+                id: 'ORD-' + Math.floor(1000 + Math.random() * 9000),
+                customerName: name,
+                customerPhone: phone,
+                address: address,
+                items: itemsArray,
+                totalPrice: total,
+                status: 'pending', // pending, preparing, completed, cancelled
+                createdAt: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' })
+            };
+
+            // Save order to LocalStorage
+            let stored = JSON.parse(localStorage.getItem('al_fanan_orders') || '[]');
+            stored.unshift(newOrder);
+            localStorage.setItem('al_fanan_orders', JSON.stringify(stored));
+
+            // Reset Cart & Form
+            cart = {};
+            renderMenu();
+            updateCart();
+            closeCartModal();
+
+            // Display Confirmation
+            document.getElementById('success-order-id').innerText = `#${newOrder.id}`;
+            document.getElementById('success-modal').classList.remove('hidden');
+            document.getElementById('checkout-form').reset();
+
+            // Update Staff Panel if visible
+            updateStaffDashboard();
+        }
+
+        // Section View Switcher
+        function showSection(view) {
+            const custView = document.getElementById('customer-view');
+            const staffView = document.getElementById('staff-view');
+
+            if (view === 'staff') {
+                if (!isStaffLoggedIn) {
+                    openStaffModal();
+                    return;
+                }
+                custView.classList.add('hidden');
+                staffView.classList.remove('hidden');
+                updateStaffDashboard();
+            } else {
+                custView.classList.remove('hidden');
+                staffView.classList.add('hidden');
+            }
+        }
+
+        // Staff Access & Modal Security
+        function openStaffModal() {
+            document.getElementById('staff-modal').classList.remove('hidden');
+            document.getElementById('staff-pin-input').focus();
+        }
+
+        function closeStaffModal() {
+            document.getElementById('staff-modal').classList.add('hidden');
+            document.getElementById('pin-error').classList.add('hidden');
+            document.getElementById('staff-pin-input').value = '';
+        }
+
+        function verifyStaffPin() {
+            const pin = document.getElementById('staff-pin-input').value;
+            if (pin === DEFAULT_PIN) {
+                isStaffLoggedIn = true;
+                closeStaffModal();
+                showSection('staff');
+            } else {
+                document.getElementById('pin-error').classList.remove('hidden');
+            }
+        }
+
+        function lockStaff() {
+            isStaffLoggedIn = false;
+            showSection('customer');
+        }
+
+        // Staff Dashboard Filters & Updates
+        function filterStaffOrders(status) {
+            staffFilter = status;
+            ['all', 'pending', 'preparing', 'completed'].forEach(st => {
+                const btn = document.getElementById(`btn-filter-${st}`);
+                if (st === status) {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold gold-gradient-bg text-black shadow";
+                } else {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold bg-dark-800 text-gray-300 border border-dark-700";
+                }
+            });
+            updateStaffDashboard();
+        }
+
+        function updateStaffDashboard() {
+            const orders = JSON.parse(localStorage.getItem('al_fanan_orders') || '[]');
+
+            // Stats Calculations
+            const pending = orders.filter(o => o.status === 'pending').length;
+            const preparing = orders.filter(o => o.status === 'preparing').length;
+            const completed = orders.filter(o => o.status === 'completed').length;
+            const sales = orders.filter(o => o.status === 'completed').reduce((sum, o) => sum + o.totalPrice, 0);
+
+            document.getElementById('stat-pending').innerText = pending;
+            document.getElementById('stat-preparing').innerText = preparing;
+            document.getElementById('stat-completed').innerText = completed;
+            document.getElementById('stat-sales').innerText = sales;
+
+            // Render Queue
+            const queueContainer = document.getElementById('staff-orders-queue');
+            let filtered = orders;
+            if (staffFilter !== 'all') {
+                filtered = orders.filter(o => o.status === staffFilter);
+            }
+
+            if (filtered.length === 0) {
+                queueContainer.innerHTML = `
+                    <div class="text-center py-10 bg-dark-800 rounded-2xl border border-dark-700 text-gray-500">
+                        <i class="fa-solid fa-list-check text-3xl mb-2 block"></i>
+                        <p class="text-xs">لا يوجد طلبات في هذه الفئة حالياً</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const statusBadges = {
+                pending: '<span class="bg-amber-500/10 text-amber-500 border border-amber-500/30 text-[11px] px-2.5 py-0.5 rounded-full font-bold">معلق 🔥</span>',
+                preparing: '<span class="bg-blue-500/10 text-blue-400 border border-blue-500/30 text-[11px] px-2.5 py-0.5 rounded-full font-bold">قيد التجهيز 👨‍🍳</span>',
+                completed: '<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[11px] px-2.5 py-0.5 rounded-full font-bold">مكتمل 🎯</span>',
+                cancelled: '<span class="bg-red-500/10 text-red-400 border border-red-500/30 text-[11px] px-2.5 py-0.5 rounded-full font-bold">ملغي ❌</span>'
+            };
+
+            queueContainer.innerHTML = filtered.map(ord => `
+                <div class="bg-dark-800 rounded-2xl p-4 border border-dark-700 space-y-3 shadow-lg">
+                    <div class="flex items-center justify-between border-b border-dark-700 pb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="font-black text-gold-400 text-sm">${ord.id}</span>
+                            <span class="text-xs text-gray-400">(${ord.createdAt})</span>
+                        </div>
+                        <div>${statusBadges[ord.status]}</div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="space-y-1">
+                            <p class="text-white font-bold"><i class="fa-solid fa-user text-gray-400 ml-1"></i> ${ord.customerName}</p>
+                            <p class="text-gray-300" dir="ltr"><i class="fa-solid fa-phone text-gray-400 ml-1"></i> ${ord.customerPhone}</p>
+                            <p class="text-gray-400"><i class="fa-solid fa-location-dot text-gray-400 ml-1"></i> ${ord.address}</p>
+                        </div>
+
+                        <div class="bg-dark-900 p-2.5 rounded-xl border border-dark-700 space-y-1">
+                            <span class="font-bold text-gray-400 block">الأصناف المطلوب تحضيرها:</span>
+                            ${ord.items.map(i => `
+                                <div class="flex justify-between text-gray-200">
+                                    <span>• ${i.name} ×${i.qty}</span>
+                                    <span class="font-bold text-gold-400">${i.price * i.qty} ج.م</span>
+                                </div>
+                            `).join('')}
+                            <div class="pt-1 border-t border-dark-700 flex justify-between font-black text-white">
+                                <span>الإجمالي:</span>
+                                <span class="text-gold-400">${ord.totalPrice} ج.م</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Change Status Controls -->
+                    <div class="flex gap-2 pt-1">
+                        ${ord.status === 'pending' ? `
+                            <button onclick="setOrderStatus('${ord.id}', 'preparing')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition">
+                                بدء التجهيز 👨‍🍳
+                            </button>
+                        ` : ''}
+                        ${ord.status === 'preparing' ? `
+                            <button onclick="setOrderStatus('${ord.id}', 'completed')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition">
+                                إكمال وإنجاز 🎯
+                            </button>
+                        ` : ''}
+                        ${ord.status !== 'cancelled' && ord.status !== 'completed' ? `
+                            <button onclick="setOrderStatus('${ord.id}', 'cancelled')" class="px-3 py-1.5 bg-red-500/20 hover:bg-red-500/40 text-red-400 border border-red-500/30 font-bold rounded-xl text-xs transition">
+                                إلغاء
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setOrderStatus(orderId, newStatus) {
+            let orders = JSON.parse(localStorage.getItem('al_fanan_orders') || '[]');
+            orders = orders.map(o => o.id === orderId ? { ...o, status: newStatus } : o);
+            localStorage.setItem('al_fanan_orders', JSON.stringify(orders));
+            updateStaffDashboard();
+        }
+
+        // Modal Toggles
+        function openCartModal() {
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
